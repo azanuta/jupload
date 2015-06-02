@@ -44,8 +44,8 @@ class UploadHandler
         $this->response = array();
         $this->options = array(
             'script_url' => $this->get_full_url().'/'.basename($this->get_server_var('SCRIPT_NAME')),
-            'upload_dir' => dirname($this->get_server_var('SCRIPT_FILENAME')).'../../../upload/arquivos/',
-            'upload_url' => $this->get_full_url().'/../../../upload/arquivos/',
+            'upload_dir' => dirname($this->get_server_var('SCRIPT_FILENAME')).'/../../upload/arquivos/',
+            'upload_url' => $this->get_full_url().'/../../upload/arquivos/',
             'user_dirs' => false,
             'mkdir_mode' => 0755,
             'param_name' => 'files',
@@ -151,6 +151,7 @@ class UploadHandler
             ),
             'print_response' => true
         );
+        
         if ($options) {
             $this->options = $options + $this->options;
         }
@@ -163,6 +164,7 @@ class UploadHandler
     }
 
     protected function initialize() {
+        
         switch ($this->get_server_var('REQUEST_METHOD')) {
             case 'OPTIONS':
             case 'HEAD':
@@ -229,7 +231,8 @@ class UploadHandler
     }
 
     protected function get_download_url($file_name, $version = null, $direct = false) {
-        if (!$direct && $this->options['download_via_php']) {
+        
+        if (!$direct && $this->options['download_via_php']) {            
             $url = $this->options['script_url']
                 .$this->get_query_separator($this->options['script_url'])
                 .$this->get_singular_param_name()
@@ -241,13 +244,14 @@ class UploadHandler
         }
         if (empty($version)) {
             $version_path = '';
-        } else {
+        } else {            
             $version_url = @$this->options['image_versions'][$version]['upload_url'];
             if ($version_url) {
                 return $version_url.$this->get_user_path().rawurlencode($file_name);
             }
             $version_path = rawurlencode($version).'/';
         }
+        
         return $this->options['upload_url'].$this->get_user_path()
             .$version_path.rawurlencode($file_name);
     }

@@ -524,6 +524,7 @@
         },
 
         _cancelHandler: function (e) {
+            filestoupload = 0;
             e.preventDefault();
             var template = $(e.currentTarget)
                     .closest('.template-upload,.template-download'),
@@ -538,6 +539,7 @@
         },
 
         _deleteHandler: function (e) {
+            filestoupload = 0;
             e.preventDefault();
             var button = $(e.currentTarget);
             this._trigger('destroy', e, $.extend({

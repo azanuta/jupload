@@ -21,7 +21,7 @@ $(function () {
         url: 'server/php/',
         change: function(e, data){
             if(filestoupload != 0){
-                alert("Agora foi, nao vai rolar.");
+                alert("Apenas um arquivo permitido");
                 return false;
             }
         }
@@ -35,6 +35,7 @@ $(function () {
         filestoupload++;
     });
 
+    
     // Enable iframe cross-domain access via redirect option:
     $('#fileupload').fileupload(
             'option',
@@ -71,7 +72,8 @@ $(function () {
         }
     } else {
         // Load existing files:
-        $('#fileupload').addClass('fileupload-processing');
+        $('#fileupload').addClass('fileupload-processing');        
+        //console.log($('#fileupload')[0]);
         $.ajax({
             // Uncomment the following to send cross-domain cookies:
             //xhrFields: {withCredentials: true},
